@@ -44,8 +44,8 @@ def flipper_post_install(installer)
   end
 end
 
-target 'UsersApp' do
-  # Pods for UsersApp
+target 'Salvador' do
+  # Pods for Salvador
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -77,7 +77,7 @@ target 'UsersApp' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  target 'UsersAppTests' do
+  target 'SalvadorTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -94,10 +94,10 @@ target 'UsersApp' do
   end
 end
 
-target 'UsersApp-tvOS' do
-  # Pods for UsersApp-tvOS
+target 'Salvador-tvOS' do
+  # Pods for Salvador-tvOS
 
-  target 'UsersApp-tvOSTests' do
+  target 'Salvador-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

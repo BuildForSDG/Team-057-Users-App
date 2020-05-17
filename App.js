@@ -8,113 +8,60 @@ import {
   StatusBar,
 } from 'react-native';
 
-import Styles from './components/Styles';
-import Colors from './components/Colors';
+import {
+  Header,
+  LearnMoreLinks,
+  Colors,
+  DebugInstructions,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
 
-class App extends React.Component {
-  render () {
-    return (
-      <>
-        <StatusBar barStyle="light-content" />
-        <SafeAreaView>
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={Styles.scrollView}>
-            <View style={Styles.row}>
-
-              <View style={Styles.card}>
-                <Text style={{color: "#fff"}}>Step two</Text>
-                <Text style={{color: "#fff"}}>
-                  Edit <Text style={Styles.highlight}>App.js</Text> to change this
-                  screen and then come back to see your edits.
-                </Text>
-              </View>
-
-              <View style={Styles.card}>
-                <Text style={{color: "#fff"}}>Step two</Text>
-                <Text style={{color: "#fff"}}>
-                  Edit <Text style={Styles.highlight}>App.js</Text> to change this
-                  screen and then come back to see your edits.
-                </Text>
-              </View>
-
-              <View style={Styles.card}>
-                <Text style={{color: "#fff"}}>Step two</Text>
-                <Text style={{color: "#fff"}}>
-                  Edit <Text style={Styles.highlight}>App.js</Text> to change this
-                  screen and then come back to see your edits.
-                </Text>
-              </View>
-
-              <View style={Styles.card}>
-                <Text style={{color: "#fff"}}>Step two</Text>
-                <Text style={{color: "#fff"}}>
-                  Edit <Text style={Styles.highlight}>App.js</Text> to change this
-                  screen and then come back to see your edits.
-                </Text>
-              </View>
-
-              <View style={Styles.card}>
-                <Text style={{color: "#fff"}}>Step two</Text>
-                <Text style={{color: "#fff"}}>
-                  Edit <Text style={Styles.highlight}>App.js</Text> to change this
-                  screen and then come back to see your edits.
-                </Text>
-              </View>
-
-              <View style={Styles.card}>
-                <Text style={{color: "#fff"}}>Step two</Text>
-                <Text style={{color: "#fff"}}>
-                  Edit <Text style={Styles.highlight}>App.js</Text> to change this
-                  screen and then come back to see your edits.
-                </Text>
-              </View>
-
-              <View style={Styles.card}>
-                <Text style={{color: "#fff"}}>Step two</Text>
-                <Text style={{color: "#fff"}}>
-                  Edit <Text style={Styles.highlight}>App.js</Text> to change this
-                  screen and then come back to see your edits.
-                </Text>
-              </View>
-
-              <View style={Styles.card}>
-                <Text style={{color: "#fff"}}>Step two</Text>
-                <Text style={{color: "#fff"}}>
-                  Edit <Text style={Styles.highlight}>App.js</Text> to change this
-                  screen and then come back to see your edits.
-                </Text>
-              </View>
-
-              <View style={Styles.card}>
-                <Text style={{color: "#fff"}}>Step two</Text>
-                <Text style={{color: "#fff"}}>
-                  Edit <Text style={Styles.highlight}>App.js</Text> to change this
-                  screen and then come back to see your edits.
-                </Text>
-              </View>
-
-              <View style={Styles.card}>
-                <Text style={{color: "#fff"}}>Step two</Text>
-                <Text style={{color: "#fff"}}>
-                  Edit <Text style={Styles.highlight}>App.js</Text> to change this
-                  screen and then come back to see your edits.
-                </Text>
-              </View>
-
-              <View style={Styles.card}>
-                <Text style={{color: "#fff"}}>Step two</Text>
-                <Text style={{color: "#fff"}}>
-                  Edit <Text style={Styles.highlight}>App.js</Text> to change this
-                  screen and then come back to see your edits.
-                </Text>
-              </View>
+const App: () => React$Node = () => {
+  return (
+    <>
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView>
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          style={styles.scrollView}>
+          <Header />
+          {global.HermesInternal == null ? null : (
+            <View style={styles.engine}>
+              <Text style={styles.footer}>Engine: Hermes</Text>
             </View>
-          </ScrollView>
-        </SafeAreaView>
-      </>
-    )
-  }
+          )}
+          <View style={styles.body}>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Step One</Text>
+              <Text style={styles.sectionDescription}>
+                Edit <Text style={styles.highlight}>App.js</Text> to change this
+                screen and then come back to see your edits.
+              </Text>
+            </View>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>See Your Changes</Text>
+              <Text style={styles.sectionDescription}>
+                <ReloadInstructions />
+              </Text>
+            </View>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Debug</Text>
+              <Text style={styles.sectionDescription}>
+                <DebugInstructions />
+              </Text>
+            </View>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Learn More</Text>
+              <Text style={styles.sectionDescription}>
+                Read the docs to discover what to do next:
+              </Text>
+            </View>
+            <LearnMoreLinks />
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </>
+  );
 };
 
 const styles = StyleSheet.create({

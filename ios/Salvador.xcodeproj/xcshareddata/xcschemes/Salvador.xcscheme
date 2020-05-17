@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "UsersApp.app"
-               BlueprintName = "UsersApp"
-               ReferencedContainer = "container:UsersApp.xcodeproj">
+               BuildableName = "Salvador.app"
+               BlueprintName = "Salvador"
+               ReferencedContainer = "container:Salvador.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "UsersAppTests.xctest"
-               BlueprintName = "UsersAppTests"
-               ReferencedContainer = "container:UsersApp.xcodeproj">
+               BuildableName = "SalvadorTests.xctest"
+               BlueprintName = "SalvadorTests"
+               ReferencedContainer = "container:Salvador.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "UsersApp.app"
-            BlueprintName = "UsersApp"
-            ReferencedContainer = "container:UsersApp.xcodeproj">
+            BuildableName = "Salvador.app"
+            BlueprintName = "Salvador"
+            ReferencedContainer = "container:Salvador.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "UsersApp.app"
-            BlueprintName = "UsersApp"
-            ReferencedContainer = "container:UsersApp.xcodeproj">
+            BuildableName = "Salvador.app"
+            BlueprintName = "Salvador"
+            ReferencedContainer = "container:Salvador.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
