@@ -28,7 +28,7 @@ class ChatBot extends React.Component {
     state = {
         messages: [
             {
-                text: `Hi! I am the your Road Assistant Bot.\n\nHow may I help you with today?`,
+                text: `Hi! I am the your Road Assistant Bot.\nHow may I help you with today?`,
                 createdAt: new Date(),
                 user: BOT
             },
