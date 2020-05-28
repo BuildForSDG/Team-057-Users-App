@@ -1,18 +1,9 @@
 import React from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
-  Text,
-  StatusBar,
   Dimensions,
-  TextInput,
-  Button,
-  Alert,
 } from 'react-native';
-
-import { GiftedChat } from 'react-native-gifted-chat';
 
 import Chat from './Chat';
 
@@ -21,29 +12,23 @@ import { Dialogflow_V2 as Dialogflow} from 'react-native-dialogflow';
 import dialogflowConfig from './env'
 import reactNativeTts from 'react-native-tts';
 
-// import { Sent, Recieved } from './Chats/index';
-
-// import Messages from './Chats/Messages';
-
 const { width, height } = Dimensions.get("screen");
 
 const User = {
     id: 1,
     name: 'Victor Momoh',
-    avatar: 'https://i.imgur.com/7k12EPD.png'
 };
 
 const BOT = {
     id: 2,
-    name: 'FAQ Bot',
-    avatar: 'https://i.imgur.com/7k12EPD.png'
+    name: 'Road Assistant Bot',
 };
 
 class ChatBot extends React.Component {
     state = {
         messages: [
             {
-                text: `Hi! I am the FAQ bot 🤖 from Jscrambler.\n\nHow may I help you with today?`,
+                text: `Hi! I am the your Road Assistant Bot.\n\nHow may I help you with today?`,
                 createdAt: new Date(),
                 user: BOT
             },
