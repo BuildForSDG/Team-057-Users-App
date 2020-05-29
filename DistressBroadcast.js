@@ -1,21 +1,15 @@
 import React from 'react';
 import { Navigation } from "react-native-navigation";
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import mapStyle from './mapStyle';
-
-
-const { width, height } = Dimensions.get("screen");
 
 class DistressBroadcast extends React.Component {
     constructor (props) {
@@ -43,11 +37,11 @@ class DistressBroadcast extends React.Component {
                                 component: {
                                     name: "Broadcasting",
                                     options: {
-                                    topBar: {
-                                        title: {
-                                        text: "Broadcasting"
+                                        topBar: {
+                                            title: {
+                                            text: "Broadcasting"
+                                            }
                                         }
-                                    }
                                     }
                                 }
                             })}
@@ -58,7 +52,6 @@ class DistressBroadcast extends React.Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    {/* <View style={styles.mapDimmer} /> */}
                 </View>
             </>
         );
