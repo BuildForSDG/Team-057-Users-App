@@ -1,13 +1,9 @@
 import React from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
   Dimensions,
-  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
@@ -23,10 +19,6 @@ class DistressBroadcast extends React.Component {
             dim: {
                 wa: width - 120,
                 ha: width - 120,
-                wb: width - 80,
-                hb: width - 80,
-                wc: width - 80,
-                hc: width - 80,
             }
         }
     }
@@ -46,57 +38,11 @@ class DistressBroadcast extends React.Component {
 
             let dim = { wa, ha };
 
-            // console.log(JSON.stringify(dim));
-
             this.setState({
                 dim: dim,
             });
 
         }, 10);
-
-        // setTimeout(() => {
-        //     let { wb, hb } = this.state.dim;
-
-        //     if (hb >= height) {
-        //         wb = width - 80;
-        //         hb = width - 80;
-        //     }
-        //     else {
-        //         wb += 60;
-        //         hb += 60;
-        //     }
-
-        //     let dim = { wb, hb };
-
-        //     // console.log(JSON.stringify(dim));
-
-        //     this.setState({
-        //         dim: dim,
-        //     });
-
-        // }, 20);
-
-        // setTimeout(() => {
-        //     let { wc, hc } = this.state.dim;
-
-        //     if (hc >= height) {
-        //         wc = width - 80;
-        //         hc = width - 80;
-        //     }
-        //     else {
-        //         wc += 60;
-        //         ha += 60;
-        //     }
-
-        //     let dim = { wc, hc };
-
-        //     // console.log(JSON.stringify(dim));
-
-        //     this.setState({
-        //         dim: dim,
-        //     });
-
-        // }, 30);
     }
     
     render () {
@@ -122,8 +68,6 @@ class DistressBroadcast extends React.Component {
                     </View>
                     <View style={styles.mapDimmer} />
                     <View style={{ ...styles.ripple, width: this.state.dim.wa, height: this.state.dim.ha, }} />
-                    {/* <View style={{ ...styles.ripple, width: this.state.dim.wb, height: this.state.dim.hb, }} />
-                    <View style={{ ...styles.ripple, width: this.state.dim.wc, height: this.state.dim.hc, }} /> */}
                 </View>
             </>
         );
