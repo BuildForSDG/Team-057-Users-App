@@ -19,7 +19,7 @@ import PopUp from './PopUp';
 import Icons from './Icons';
 import Map from './Map';
 import Notifications from './Notifications';
-import Weather from "./Weather";
+import Weather from "./Weath";
 import WeatherDetails from "./WeatherDetails";
 import Profile from "./Profile";
 
