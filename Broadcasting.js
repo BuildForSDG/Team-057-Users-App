@@ -108,7 +108,7 @@ class DistressBroadcast extends React.Component {
                         provider={PROVIDER_GOOGLE}
                         style={styles.map}
                         region={{
-                            latitude: 37.78825,
+                            latitude: 45,
                             longitude: -122.4324,
                             latitudeDelta: 0.0922,
                             longitudeDelta: 0.0421,

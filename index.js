@@ -4,7 +4,12 @@
 
 import { Navigation } from "react-native-navigation";
 import {AppRegistry} from 'react-native';
+// import AsyncStorage from "@react-native-community/async-storage";
+// import Storage from './Storage';
+
+
 import App from './App';
+import Onboarding from "./Onboarding";
 import Chatbot from './ChatBot';
 import DisressBroadcast from './DistressBroadcast';
 import Broadcasting from './Broadcasting';
@@ -14,10 +19,21 @@ import PopUp from './PopUp';
 import Icons from './Icons';
 import Map from './Map';
 import Notifications from './Notifications';
+import Weather from "./Weather";
+import WeatherDetails from "./WeatherDetails";
+import Profile from "./Profile";
+
+// Headless Scripts
+import WatchLocation from "./Headless/WatchLocation";
+
+// Storage
+import { getData } from "./Storage";
+
 // import {name as appName} from './app.json';
 
 // AppRegistry.registerComponent(appName, () => App);
 
+Navigation.registerComponent('Onboarding', () => Onboarding);
 Navigation.registerComponent('WelcomeScreen', () => App);
 Navigation.registerComponent('Chatbot', () => Chatbot);
 Navigation.registerComponent('DisressBroadcast', () => DisressBroadcast);
@@ -28,6 +44,9 @@ Navigation.registerComponent('PopUp', () => PopUp);
 Navigation.registerComponent('Icons', () => Icons);
 Navigation.registerComponent('Map', () => Map);
 Navigation.registerComponent('Notifications', () => Notifications);
+Navigation.registerComponent('Weather', () => Weather);
+Navigation.registerComponent('WeatherDetails', () => WeatherDetails);
+Navigation.registerComponent('Profile', () => Profile);
 
 Navigation.setDefaultOptions({
     statusBar: {
@@ -43,23 +62,49 @@ Navigation.setDefaultOptions({
     }
 });
 
+let user = {};
+
+const getUserData = getData('@userData');
+
+if (typeof getUserData == "string") {
+    user = JSON.parse(getUserData);
+}
+
 Navigation.events().registerAppLaunchedListener(() => {
-    Navigation.setRoot({
-        root: {
-            stack: {
-                children: [
-                    {
-                        component: {
-                            name: 'WelcomeScreen'
-                        }
-                    }  
-                ]
+    if (user.signedIn) {
+        Navigation.setRoot({
+            root: {
+                stack: {
+                    children: [
+                        {
+                            component: {
+                                name: 'WelcomeScreen'
+                            }
+                        }  
+                    ]
+                }
             }
-        }
-    });
+        });
+    }
+    else {
+        Navigation.setRoot({
+            root: {
+                stack: {
+                    children: [
+                        {
+                            component: {
+                                name: 'Onboarding'
+                            }
+                        }  
+                    ]
+                }
+            }
+        });
+    }
 });
 
 
+AppRegistry.registerHeadlessTask('WatchLocation', () => WatchLocation);
 
 // Navigation.events().registerAppLaunchedListener(async () => {
 //     Navigation.setRoot({

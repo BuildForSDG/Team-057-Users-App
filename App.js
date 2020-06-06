@@ -14,6 +14,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Swiper from 'react-native-swiper';
 import DisressBroadcast from './DistressBroadcast';
+import RoadTips from './RoadTips';
 
 const { width, height } = Dimensions.get("screen");
 
@@ -23,18 +24,7 @@ const Option = (props) => {
 			style={{
 				margin: 10,
 			}}
-			onPress={() => Navigation.push(props.componentId, {
-				component: {
-					name: props.goto,
-					options: {
-					topBar: {
-						title: {
-						text: props.goto
-						}
-					}
-					}
-				}
-			})} 
+			onPress={props.action}
 		>
 			<View style={[styles.card, { ...styles.item, backgroundColor: props.background }]}>
 				<Icon name={props.icon} size={36} color="#ffffff" />
@@ -42,96 +32,133 @@ const Option = (props) => {
 			</View>
 		</TouchableOpacity>
 	)
-}
+};
 
-const App = (props) => {
-  return (
-    <>			
-		<Swiper style={styles.wrapper} showsPagination={false} bounces={true} loop={false} index={1}>
-			<SafeAreaView>
-				<View>
-					<DisressBroadcast
-						componentId={props.componentId}
-					 />
-				</View>
-			</SafeAreaView>
-			<SafeAreaView>
-				
-				<ScrollView
-					contentInsetAdjustmentBehavior="automatic"
-				>
+class App extends React.Component {
+	constructor (props) {
+		super(props);
+	}
 
-					<View style={styles.items}>
-						<Option
-							componentId={props.componentId}
-							name="Text To Speech"
-							icon="phonelink-ring"
-							goto="TTS"
-							background="#581bfe"
-						/>
+	state = {
+		roadTipsVisibility: false,
+	}
 
-						<Option
-							componentId={props.componentId}
-							name="Voice Recognition"
-							icon="mic"
-							goto="VoiceRecognition"
-							background="#fe8e38"
-						/>
+	nav (goto) {
+		Navigation.push(this.props.componentId, {
+			component: {
+				name: goto,
+				options: {
+					topBar: {
+						title: {
+							text: goto
+						}
+					}
+				}
+			}
+		})
+	}
 
-						<Option
-							componentId={props.componentId}
-							name="Weather Report"
-							icon="filter-drama"
-							goto="VoiceRecognition"
-							background="#bc49ff"
-						/>
+    showRoadTips = () => {
+		let { roadTipsVisibility }  = this.state;
+		
+		roadTipsVisibility = true;
 
-						<Option
-							componentId={props.componentId}
-							name="Report"
-							icon="report"
-							goto="Chatbot"
-							background="#fe5b92"
-						/>
+		this.setState({roadTipsVisibility});
 
-						<Option
-							componentId={props.componentId}
-							name="Distress Broadcast"
-							icon="speaker-phone"
-							goto="DisressBroadcast"
-							background="#FF5A3E"
-						/>
+    }
 
-						<Option
-							componentId={props.componentId}
-							name="Road Tips"
-							icon="directions"
-							goto="PopUp"
-							background="#53cbff"
-						/>
+    closeRoadTips = () => {
+		let { roadTipsVisibility }  = this.state;
+		
+		roadTipsVisibility = false;
 
-						<Option
-							componentId={props.componentId}
-							name="Map"
-							icon="map"
-							goto="Map"
-							background="#fe8e38"
-						/>
+		this.setState({roadTipsVisibility});
 
-						<Option
-							componentId={props.componentId}
-							name="Notifications"
-							icon="notifications"
-							goto="Notifications"
-							background="#bc49ff"
-						/>
-					</View>
+    }
 
-				</ScrollView>
-			</SafeAreaView>
-		</Swiper>
-    </>
-  );
+	render () {
+		return (
+			<>
+				<RoadTips visible={this.state.roadTipsVisibility} onClose={this.closeRoadTips} />
+				<Swiper style={styles.wrapper} showsPagination={false} bounces={true} loop={false} index={1}>
+					<SafeAreaView>
+						<View>
+							<DisressBroadcast
+								componentId={this.props.componentId}
+							/>
+						</View>
+					</SafeAreaView>
+					<SafeAreaView>
+						
+						<ScrollView
+							contentInsetAdjustmentBehavior="automatic"
+						>
+	
+							<View style={styles.items}>
+								<Option
+									action={() => this.nav("TTS")}
+									name="Text To Speech"
+									icon="phonelink-ring"
+									background="#581bfe"
+								/>
+	
+								<Option
+									action={() => this.nav("VoiceRecognition")}
+									name="Voice Recognition"
+									icon="mic"
+									background="#fe8e38"
+								/>
+	
+								<Option
+									action={() => this.nav("Weather")}
+									name="Weather Report"
+									icon="filter-drama"
+									background="#bc49ff"
+								/>
+	
+								<Option
+									action={() => this.nav("Chatbot")}
+									name="Report"
+									icon="report"
+									background="#fe5b92"
+								/>
+	
+								<Option
+									action={() => this.nav("DisressBroadcast")}
+									name="Distress Broadcast"
+									icon="speaker-phone"
+									background="#FF5A3E"
+								/>
+	
+								<Option
+									action={this.showRoadTips}
+									name="Road Tips"
+									icon="directions"
+									background="#53cbff"
+								/>
+	
+								<Option
+									action={() => this.nav("Map")}
+									name="Map"
+									icon="map"
+									background="#fe8e38"
+								/>
+	
+								<Option
+									action={() => this.nav("Notifications")}
+									name="Notifications"
+									icon="notifications"
+									background="#bc49ff"
+								/>
+							</View>
+	
+						</ScrollView>
+					</SafeAreaView>
+				</Swiper>
+			</>
+		);
+	}
+
 };
 
 const styles = StyleSheet.create({
