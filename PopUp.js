@@ -26,7 +26,8 @@ class PopUp extends Component {
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
+            // Alert.alert("Modal has been closed.");
+            this.setModalVisible(!modalVisible);
           }}
         >
           <View style={styles.centeredView}>
