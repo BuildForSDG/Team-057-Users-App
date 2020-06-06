@@ -10,10 +10,45 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import mapStyle from './mapStyle';
+import Geolocation from '@react-native-community/geolocation';
 
+<<<<<<< HEAD
+=======
+
+const config = {
+    skipPermissionRequests: false,
+    authorizationLevel: "auto"
+};
+
+const { width, height } = Dimensions.get("screen");
+
+>>>>>>> ft_map
 class DistressBroadcast extends React.Component {
     constructor (props) {
         super(props);
+
+        this.state = {
+            region: this.initialRegion,
+            markers: [
+                {
+                    latlng: {},
+                    title: "You",
+                    description: "This is where you are...",
+                }
+            ]
+        }
+
+        Geolocation.setRNConfiguration(config);
+        Geolocation.getCurrentPosition(location => {
+            this.setState({
+                region: {
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                    latitudeDelta: 0.4,
+                    longitudeDelta: 0.6,
+                }
+            });
+        });
     }
 
     render () {
@@ -23,12 +58,7 @@ class DistressBroadcast extends React.Component {
                     <MapView
                         provider={PROVIDER_GOOGLE}
                         style={styles.map}
-                        region={{
-                            latitude: 37.78825,
-                            longitude: -122.4324,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421,
-                        }}
+                        region={this.state.region}
                         customMapStyle={mapStyle.dark}
                     />
                     <View style={[styles.flexCenter, styles.distress]}>

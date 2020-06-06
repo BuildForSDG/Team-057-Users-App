@@ -13,11 +13,15 @@ import tips from "./tips";
 
 const { width, height } = Dimensions.get("screen");
 
-const rand = Math.round(Math.random() * tips.length - 1);
+const rand = Math.round(Math.random() * tips.length) - 1;
 
-class PopUp extends Component {
+class RoadTips extends Component {
+  constructor (props) {
+    super(props);
+  }
+
   state = {
-    modalVisible: false,
+    // modalVisible: this.props.visible,
     tipI: rand,
   };
 
@@ -26,22 +30,13 @@ class PopUp extends Component {
   }
 
   render() {
-    const { modalVisible } = this.state;
+    // const { modalVisible } = this.state;
     return (
-      <View style={styles.centeredView}>
-        {console.log(this.state.tipI)}
         <Modal
           animationType="fade"
           transparent={true}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-<<<<<<< HEAD
-            // Alert.alert("Modal has been closed.");
-            this.setModalVisible(!modalVisible);
-=======
-            this.setModalVisible(false);
->>>>>>> ft_map
-          }}
+          visible={this.props.visible}
+          onRequestClose={this.props.onClose}
         >
           <View style={[styles.centeredView, styles.modalBg]}>
             <View style={styles.modalView}>
@@ -53,17 +48,15 @@ class PopUp extends Component {
               </View>
               <View style={{ flex: 0, flexDirection: "row" }}>
                 <TouchableHighlight
-                  style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                  onPress={() => {
-                    this.setModalVisible(!modalVisible);
-                  }}
+                  style={{ ...styles.openButton, backgroundColor: "red" }}
+                  onPress={this.props.onClose}
                 >
                   <Text style={styles.textStyle}>Close</Text>
                 </TouchableHighlight>
                 <TouchableHighlight
                   style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
                   onPress={() => {
-                    this.setState({ tipI: Math.round(Math.random() * tips.length - 1) });
+                    this.setState({ tipI: Math.round(Math.random() * tips.length) - 1 });
                   }}
                 >
                   <Text style={styles.textStyle}>Next Tip</Text>
@@ -72,16 +65,6 @@ class PopUp extends Component {
             </View>
           </View>
         </Modal>
-
-        <TouchableHighlight
-          style={styles.openButton}
-          onPress={() => {
-            this.setModalVisible(true);
-          }}
-        >
-          <Text style={styles.textStyle}>Show Modal</Text>
-        </TouchableHighlight>
-      </View>
     );
   }
 }
@@ -139,4 +122,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PopUp;
+export default RoadTips;

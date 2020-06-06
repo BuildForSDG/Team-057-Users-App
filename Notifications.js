@@ -4,6 +4,12 @@ import PushNotification from 'react-native-push-notification';
 
 class Notifications extends React.Component {
 
+    schedule = () => {
+        setTimeout(() => {
+            this.notify();
+        }, 5000);
+    }
+
     notify = () => {
         PushNotification.localNotification({
             /* Android Only Properties */
@@ -43,7 +49,7 @@ class Notifications extends React.Component {
 
         PushNotification.localNotificationSchedule({
             //... You can use all the options from localNotifications
-            message: "My Notification Message", // (required)
+            message: "My New Notification Message", // (required)
             date: new Date(Date.now() + 60 * 1000), // in 60 secs
         });
     }
@@ -51,6 +57,7 @@ class Notifications extends React.Component {
     render = () => {
         return (
             <>
+                {this.schedule()}
                 <View>
                     <Text>Click the button to activate a notification</Text>
                     <Button

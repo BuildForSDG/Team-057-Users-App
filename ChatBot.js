@@ -28,7 +28,11 @@ class ChatBot extends React.Component {
     state = {
         messages: [
             {
+<<<<<<< HEAD
                 text: `Hi! I am the your Road Assistant Bot.\nHow may I help you with today?`,
+=======
+                text: `Hi! I am your Road Assistant Bot.\n\nHow may I help you with today?`,
+>>>>>>> ft_map
                 createdAt: new Date(),
                 user: BOT
             },
@@ -53,8 +57,12 @@ class ChatBot extends React.Component {
     }
 
     handleGoogleResponse(result) {
-        let text = result.queryResult.fulfillmentMessages[0].text.text[0];
-        this.sendBotResponse(text);
+        let arrayMsg = result.queryResult.fulfillmentMessages;
+
+        arrayMsg.forEach(msg => {
+            let text = msg.text.text[0];
+            this.sendBotResponse(text);
+        });
     }
     
     sendBotResponse(text) {
@@ -111,11 +119,13 @@ class ChatBot extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#ffffff",
+        backgroundColor: "#EDEDED",
+        // backgroundColor: "#ffffff",
         width: width,
         height: height,
     },
     messages: {
+        backgroundColor: "#00000000",
         flex: 1,
         flexDirection: "column",
     },

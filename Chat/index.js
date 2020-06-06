@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, TextInput, ScrollView, View, Dimensions, TouchableOpacity, Alert, Button } from "react-native";
+import { Text, TextInput, ScrollView, View, Dimensions, TouchableOpacity, StyleSheet, Keyboard } from "react-native";
 
 import values from './common';
 
@@ -66,15 +66,23 @@ class Chat extends React.Component {
         
         this.state = {
             mText: '',
+            displayInput: false,
         }
 
         Voice.onSpeechStart = this.onSpeechStart.bind(this);
         Voice.onSpeechRecognized = this.onSpeechRecognized.bind(this);
         Voice.onSpeechResults = this.onSpeechResults.bind(this);
     }
+    componentDidMount() {
+        // this.keyboardDidShowListener = Keyboard.addListener(
+        //     'keyboardDidShow',
+        //     this._keyboardDidShow,
+        // );
+    }
     
     componentWillUnmount() {
         Voice.destroy().then(Voice.removeAllListeners);
+        // this.keyboardDidShowListener.remove();
     }
 
     onSpeechStart(e) {
@@ -130,7 +138,27 @@ class Chat extends React.Component {
             this.props.onSend(message);
         }
 
-    }  
+    } 
+
+    _showInput = () => {
+        this.textInput.focus();
+
+        let displayInput = true;
+        this.setState({ displayInput });
+
+        this.keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            this._hideInput,
+        );
+    }
+
+    _hideInput = () => {
+        // this.textInput.focus();
+        this.keyboardDidHideListener.remove();
+
+        let displayInput = false;
+        this.setState({ displayInput });
+    }
 
     _listen = () => {
         
@@ -141,6 +169,7 @@ class Chat extends React.Component {
     // }
 
     render = () => {
+        const { displayInput } = this.state;
         return (
             <>
                 <ScrollView
@@ -150,15 +179,48 @@ class Chat extends React.Component {
                     {this.props.messages.map(message => _showMessages(message, this.props.user))}  
                 </ScrollView> 
                 <View>
-                    <View style={{flex:0, flexDirection: "row", alignItems: "center",}}>
-                        <View style={{ width: "auto", marginHorizontal: 4, }}>
-                            <Button title="speak" onPress={this._startRecognition.bind(this)} />
+                    <View style={{width: width, flex:0, flexDirection: "row", alignItems: "center", justifyContent: "center", padding: 8, }}>
+                        <View style={displayInput ? {...styles.inputView} : { display: "none" } } ref={ref => {this.inputView = ref}}>
+                            <TextInput placeholder="Type something..." multiline style={{ width: width - 84, marginLeft: 8, fontSize: 20}} onChangeText={mText => this.setState({mText})} ref={ref => {this.textInput = ref}} onBlur={this._hideInput} />
+                            <TouchableOpacity
+                                onPress={this._send}
+                            >
+                                <View style={styles.btns}>
+                                    <Icon
+                                        name="send"
+                                        color="#ffffff"
+                                        size={24}
+                                    />
+                                </View>
+                            </TouchableOpacity>
                         </View>
-                        <View style={{ width: width - 120 }}>
-                            <TextInput placeholder="Type something..." multiline onChangeText={mText => this.setState({mText})} ref={ref => {this.textInput = ref}} />
-                        </View>
-                        <View style={{ width: "auto", marginHorizontal: 4, }}>
-                            <Button title="send" onPress={this._send} />
+                        <View style={ (!displayInput) ? {...styles.options} : { display: "none" } }>
+                            <View style={{ width: "auto", marginHorizontal: 4, }}>
+                                <TouchableOpacity
+                                    onPress={this._startRecognition.bind(this)}
+                                >
+                                    <View style={styles.btns}>
+                                        <Icon
+                                            name="mic"
+                                            color="#ffffff"
+                                            size={24}
+                                        />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ width: "auto", marginHorizontal: 4, }}>
+                                <TouchableOpacity
+                                    onPress={this._showInput}
+                                >
+                                    <View style={styles.btns}>
+                                        <Icon
+                                            name="keyboard"
+                                            color="#ffffff"
+                                            size={24}
+                                        />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -168,5 +230,50 @@ class Chat extends React.Component {
     }
 
 }
+
+const styles = StyleSheet.create({
+    btns: {
+        flex: 0,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#A6294B",
+        height: 48,
+        width: 48,
+        borderRadius: 48,
+    },
+    sendBtn: {
+        flex: 0,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#A6294B",
+        height: 36,
+        width: 36,
+        borderRadius: 48,
+    },
+    options: {
+        flex: 0,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 8,
+        // borderColor: "#444",
+        // borderStyle: "solid",
+        backgroundColor: "#ffffff",
+        // borderWidth: 1,
+        borderRadius: 60,
+    },
+    optionsHidden: {
+        display: "none",
+    },
+    inputView: {
+        flex: 2,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#ffffff",
+        padding: 4,
+        borderRadius: 60,
+    }
+})
 
 export default Chat;

@@ -2,7 +2,7 @@ import React from 'react';
 import { 
     StyleSheet,
  } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import mapStyle from './mapStyle';
 import Geolocation from '@react-native-community/geolocation';
 import PushNotification from 'react-native-push-notification';
@@ -21,18 +21,36 @@ class Map extends React.Component {
         super(props);
 
         this.state = {
-            region: {
-                longitude: 0,
-                latitude: 0,
-                longitudeDelta: 0.001,
-                latitudeDelta: 0.001
-            },
+            region: this.initialRegion,
+            markers: [
+                {
+                    latlng: {},
+                    title: "You",
+                    description: "This is where you are...",
+                }
+            ]
         }
-    }
-    
-    _getLocal = () => {
+
         Geolocation.setRNConfiguration(config);
-        // Geolocation.getCurrentPosition(location => this.setState({ region: { longitude: location.coords.longitude, latitude: location.coords.latitude, longitudeDelta: 0.001, latitudeDelta: 0.001 } }));
+        Geolocation.getCurrentPosition(location => {
+            this.setState({
+                region: {
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                    latitudeDelta: 0.001,
+                    longitudeDelta: 0.001,
+                }
+            });
+
+            this.setState({
+                markers: {
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                    latitudeDelta: 0.001,
+                    longitudeDelta: 0.001,
+                }
+            });
+        });
     }
 
     onRegionChange(region) {
@@ -42,14 +60,24 @@ class Map extends React.Component {
     render () {
         return (
             <>
-                {this._getLocal()}
+                {/* {this._getLocal()} */}
                 <MapView
                     provider={PROVIDER_GOOGLE}
                     style={styles.map}
                     region={this.state.region}
-                    onRegionChange={this.onRegionChange}
-                    customMapStyle={mapStyle.aubergine}
-                />
+                    onRegionChange={() => this.onRegionChange()}
+                    customMapStyle={mapStyle.standard}
+                >
+                    {/* {
+                        this.state.markers.map(marker => ( */}
+                            <Marker
+                            coordinate={this.state.region}
+                            title="You"
+                            description="Where I am..."
+                            />
+                        {/* ))
+                    } */}
+                </MapView>
             </>
         )
     }

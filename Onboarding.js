@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import {
   StyleSheet,
   View,
@@ -88,11 +89,23 @@ class ChatBot extends React.Component {
             Dialogflow.LANG_ENGLISH_US,
             dialogflowConfig.project_id
         );
+=======
+import { View, Text, Button, SafeAreaView } from 'react-native';
+import Swiper from 'react-native-swiper';
+import { Navigation } from "react-native-navigation";
+
+import { storeData, getData } from './Storage';
+
+class Onboarding extends React.Component {
+    constructor (props) {
+        super(props);
+>>>>>>> ft_map
     }
 
     render () {
         return (
             <>
+<<<<<<< HEAD
                 <View style={styles.container}>
                     <View style={styles.messages}>
                         <Chat
@@ -102,11 +115,40 @@ class ChatBot extends React.Component {
                         />
                     </View>
                 </View>
+=======
+                <Swiper ref='swiper' showsPagination={true} bounces={true} loop={false}>
+                    <SafeAreaView>
+                        <View>
+                            <Text>Welcome to Road Assistant</Text>
+                            <Button title="Next" onPress={() => this.refs.swiper.scrollBy(1)} />
+                        </View>
+                    </SafeAreaView>
+                    <SafeAreaView>
+                        <View>
+                            <Text>Welcome to Road Assistant</Text>
+                            <Button title="Next" onPress={() => this.refs.swiper.scrollBy(-1)} />
+                            <Button title="Open App" onPress={() => Navigation.push(this.props.componentId, {
+                                component: {
+                                    name: "WelcomeScreen",
+                                    options: {
+                                        topBar: {
+                                            title: {
+                                                text: "WelcomeScreen"
+                                            }
+                                        }
+                                    }
+                                }
+                            })} />
+                        </View>
+                    </SafeAreaView>
+                </Swiper>
+>>>>>>> ft_map
             </>
         );
     }
 }
 
+<<<<<<< HEAD
 
 const styles = StyleSheet.create({
     container: {
@@ -179,3 +221,6 @@ const styles = StyleSheet.create({
 })
 
 export default ChatBot;
+=======
+export default Onboarding;
+>>>>>>> ft_map

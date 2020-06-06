@@ -1,11 +1,8 @@
 import React from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
   Button,
   AppRegistry,
 } from 'react-native';
