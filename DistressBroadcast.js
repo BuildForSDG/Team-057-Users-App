@@ -12,8 +12,6 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import mapStyle from './mapStyle';
 import Geolocation from '@react-native-community/geolocation';
 
-<<<<<<< HEAD
-=======
 
 const config = {
     skipPermissionRequests: false,
@@ -22,7 +20,6 @@ const config = {
 
 const { width, height } = Dimensions.get("screen");
 
->>>>>>> ft_map
 class DistressBroadcast extends React.Component {
     constructor (props) {
         super(props);
