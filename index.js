@@ -10,6 +10,7 @@ import {AppRegistry} from 'react-native';
 
 import App from './App';
 import Onboarding from "./Onboarding";
+import OnboardUser from "./OnboardUser";
 import Chatbot from './ChatBot';
 import DisressBroadcast from './DistressBroadcast';
 import Broadcasting from './Broadcasting';
@@ -22,6 +23,7 @@ import Notifications from './Notifications';
 import Weather from "./Weather";
 import WeatherDetails from "./WeatherDetails";
 import Profile from "./Profile";
+import PoorRoadReports from "./PoorRoadReports";
 
 // Headless Scripts
 import WatchLocation from "./Headless/WatchLocation";
@@ -34,6 +36,7 @@ import { getData } from "./Storage";
 // AppRegistry.registerComponent(appName, () => App);
 
 Navigation.registerComponent('Onboarding', () => Onboarding);
+Navigation.registerComponent('OnboardUser', () => OnboardUser);
 Navigation.registerComponent('WelcomeScreen', () => App);
 Navigation.registerComponent('Chatbot', () => Chatbot);
 Navigation.registerComponent('DisressBroadcast', () => DisressBroadcast);
@@ -47,6 +50,7 @@ Navigation.registerComponent('Notifications', () => Notifications);
 Navigation.registerComponent('Weather', () => Weather);
 Navigation.registerComponent('WeatherDetails', () => WeatherDetails);
 Navigation.registerComponent('Profile', () => Profile);
+Navigation.registerComponent('PoorRoadReports', () => PoorRoadReports);
 
 Navigation.setDefaultOptions({
     statusBar: {

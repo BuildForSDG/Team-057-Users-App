@@ -48,7 +48,6 @@ class DistressBroadcast extends React.Component {
     render () {
         return (
             <>
-                {this._ripple()}
                 <View style={[styles.container, styles.flexCenter]}>
                     <MapView
                         provider={PROVIDER_GOOGLE}
@@ -61,13 +60,6 @@ class DistressBroadcast extends React.Component {
                         }}
                         customMapStyle={mapStyle.dark}
                     />
-                    <View style={[styles.flexCenter, styles.distress]}>
-                        <Icon name="warning" color="red" size={128} />
-                        <Text style={[styles.yellow, styles.upCase, styles.textL]}>Distress</Text>
-                        <Text style={[styles.white, styles.upCase, styles.textM]}>Broadcast</Text>
-                    </View>
-                    <View style={styles.mapDimmer} />
-                    <View style={{ ...styles.ripple, width: this.state.dim.wa, height: this.state.dim.ha, }} />
                 </View>
             </>
         );
