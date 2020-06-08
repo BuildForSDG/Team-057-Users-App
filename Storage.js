@@ -15,6 +15,7 @@ const storeData = async (key, value) => {
             return false;
         }
     } catch (e) {
+        console.log(e);
         return e;
     }
 }
@@ -30,6 +31,7 @@ const getData = async (key) => {
             return false;
         }
     } catch(e) {
+        console.log(e);
         return false;
     }
 }

@@ -22,9 +22,20 @@ class Onboarding extends React.Component {
                     </SafeAreaView>
                     <SafeAreaView>
                         <View>
-                            <Text>Welcome to Road Assistant</Text>
-                            <Button title="Next" onPress={() => this.refs.swiper.scrollBy(-1)} />
-                            <Button title="Open App" onPress={() => Navigation.push(this.props.componentId, {
+                            <Text>Next you have to get an account set up.</Text>
+                            <Button title="Set up my account" onPress={() => Navigation.push(this.props.componentId, {
+                                component: {
+                                    name: "OnboardUser",
+                                    options: {
+                                        topBar: {
+                                            title: {
+                                                text: "OnboardUser"
+                                            }
+                                        }
+                                    }
+                                }
+                            })} />
+                            <Button title="Open Home Screen" onPress={() => Navigation.push(this.props.componentId, {
                                 component: {
                                     name: "WelcomeScreen",
                                     options: {
