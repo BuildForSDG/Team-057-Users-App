@@ -68,7 +68,7 @@ Navigation.setDefaultOptions({
 
 let user = {};
 
-const getUserData = getData('@userData');
+const getUserData = getData('@user_data');
 
 if (typeof getUserData == "string") {
     user = JSON.parse(getUserData);

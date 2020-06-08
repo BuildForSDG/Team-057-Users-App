@@ -5,12 +5,13 @@ import {
   Dimensions,
 } from 'react-native';
 
-import Chat from './Chat';
-
 import { Dialogflow_V2 as Dialogflow} from 'react-native-dialogflow';
+import reactNativeTts from 'react-native-tts';
 
 import dialogflowConfig from './env'
-import reactNativeTts from 'react-native-tts';
+
+import { getData, storeData } from './Storage';
+import Chat from './Chat';
 
 const { width, height } = Dimensions.get("screen");
 
@@ -25,10 +26,63 @@ const BOT = {
 };
 
 class ChatBot extends React.Component {
+    constructor (props) {
+        super(props);
+    }
+
     state = {
         messages: [
         ],
     };
+
+    async recievedData (data) {
+
+		fetch(`https://backend-057.herokuapp.com/api/${data["User ID"]}/${data["Token"]}/profile`)
+		.then((response) => response.json())
+		.then((json) => {
+            if (json.success) {
+                storeData('@user_data', {
+                    ...json.data,
+                    token: data["Token"],
+                    signedIn: true,
+                });
+
+                if (json.data["First Name"] && json.data["Last Name"]) {
+                    this.completed();
+                }
+                else {
+                    this.getUserData();
+                }
+            }
+            else {
+            }
+		})
+        .catch((error) => { console.error(error) });
+        
+    }
+
+    complete () {
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: "WelcomeScreen",
+                options: {
+                    topBar: {
+                        title: {
+                            text: "WelcomeScreen"
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    getUserData () {
+        Dialogflow.requestQuery(
+            "Update my info.",
+            result => this.handleGoogleResponse(result),
+            error => console.log(error)
+        );
+    }
   
     onSend(message) {
         
@@ -51,6 +105,11 @@ class ChatBot extends React.Component {
         let arrayMsg = result.queryResult.fulfillmentMessages;
 
         arrayMsg.forEach(msg => {
+
+            if (msg.data) {
+                this.recievedData(msg.data);
+            }
+
             let text = msg.text.text[0];
             this.sendBotResponse(text);
         });
