@@ -10,8 +10,12 @@ import {
   Button,
   Dimensions,
   TouchableOpacity,
+  Image,
+  ImageBackground,
+  BackHandler,
+  Alert,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import Swiper from 'react-native-swiper';
 import DisressBroadcast from './DistressBroadcast';
 import RoadTips from './RoadTips';
@@ -26,9 +30,9 @@ const Option = (props) => {
 			}}
 			onPress={props.action}
 		>
-			<View style={[styles.card, { ...styles.item, backgroundColor: props.background }]}>
-				<Icon name={props.icon} size={36} color="#ffffff" />
-				<Text style={{ color: "#ffffff", fontSize: 16, fontWeight: "bold" }}>{props.name}</Text>
+			<View style={[styles.card, { ...styles.item, backgroundColor: "#ffffff" }]}>
+				<Icon name={props.icon} size={72} color={props.color} solid />
+				<Text style={{ color: props.color, fontSize: 16, fontWeight: "100", margin: 5, }}>{props.name}</Text>
 			</View>
 		</TouchableOpacity>
 	)
@@ -40,7 +44,27 @@ class App extends React.Component {
 	}
 
 	state = {
+		home: true,
 		roadTipsVisibility: false,
+	}
+
+	backAction = () => {
+
+		if (!this.state.home) {
+			return this.refs.swiper.scrollBy(1);
+		}
+		
+	}
+	
+	componentDidMount() {
+		this.backHandler = BackHandler.addEventListener(
+			"hardwareBackPress",
+			this.backAction
+		);
+	}
+	
+	componentWillUnmount() {
+		this.backHandler.remove();
 	}
 
 	nav (goto) {
@@ -74,13 +98,15 @@ class App extends React.Component {
 
 		this.setState({roadTipsVisibility});
 
-    }
+	}
+
 
 	render () {
 		return (
 			<>
+				<StatusBar backgroundColor={ (this.state.home) ? "#014290" : "#000000" }/>
 				<RoadTips visible={this.state.roadTipsVisibility} onClose={this.closeRoadTips} />
-				<Swiper style={styles.wrapper} showsPagination={false} bounces={true} loop={false} index={1}>
+				<Swiper ref='swiper' style={styles.wrapper} showsPagination={false} bounces={true} loop={false} index={1} onIndexChanged={() => this.setState({home: !this.state.home})}>
 					<SafeAreaView>
 						<View>
 							<DisressBroadcast
@@ -88,73 +114,104 @@ class App extends React.Component {
 							/>
 						</View>
 					</SafeAreaView>
-					<SafeAreaView>
+					<SafeAreaView
+							style={styles.container}
+					>
 						
 						<ScrollView
-							contentInsetAdjustmentBehavior="automatic"
+							contentInsetAdjustmentBehavior="automatic" 
 						>
+							{/* <Image source={require("./imgs/vect.png")} style={styles.topBg} /> */}
+
+							<ImageBackground
+								source={require("./imgs/homeBg.png")}
+								style={styles.HomeBg}
+								imageStyle={{
+									flex: 1,
+									resizeMode: "cover",
+									justifyContent: "center"
+								}}
+							>
+
+								<Text style={styles.appName}>Road Assistant</Text>
+
+								<View style={styles.items}>
+									
+									<Option
+										action={() => this.nav("TTS")}
+										name="My Locations"
+										icon="map-pin"
+										color="#bc49ff"
+									/>
+									
+		
+									<Option
+										action={() => this.nav("VoiceRecognition")}
+										name="Reminders"
+										icon="stopwatch"
+										color="#FE5B92"
+									/>
+		
+									<Option
+										action={() => this.nav("Weather")}
+										name="Weather Reports"
+										icon="cloud"
+										color="#bc49ff"
+									/>
+		
+									<Option
+										action={() => this.nav("Weather")}
+										name="My Profile"
+										icon="user"
+										color="#581bfe"
+									/>
+		
+									<Option
+										action={() => this.nav("Chatbot")}
+										name="Report Poor Road"
+										icon="road"
+										color="#fe5b92"
+									/>
+		
+									<Option
+										action={() => this.nav("DisressBroadcast")}
+										name="Road Companion"
+										icon="directions"
+										color="#FF5A3E"
+									/>
+		
+									<Option
+										action={this.showRoadTips}
+										name="Road Tips"
+										icon="info-circle"
+										color="#53cbff"
+									/>
+		
+									<Option
+										action={() => this.nav("Map")}
+										name="Insurance"
+										icon="user-injured"
+										color="#fe8e38"
+									/>
+								</View>
 	
-							<View style={styles.items}>
-								<Option
-									action={() => this.nav("TTS")}
-									name="Text To Speech"
-									icon="phonelink-ring"
-									background="#581bfe"
-								/>
-	
-								<Option
-									action={() => this.nav("VoiceRecognition")}
-									name="Voice Recognition"
-									icon="mic"
-									background="#fe8e38"
-								/>
-	
-								<Option
-									action={() => this.nav("Weather")}
-									name="Weather Report"
-									icon="filter-drama"
-									background="#bc49ff"
-								/>
-	
-								<Option
-									action={() => this.nav("Chatbot")}
-									name="Report"
-									icon="report"
-									background="#fe5b92"
-								/>
-	
-								<Option
-									action={() => this.nav("DisressBroadcast")}
-									name="Distress Broadcast"
-									icon="speaker-phone"
-									background="#FF5A3E"
-								/>
-	
-								<Option
-									action={this.showRoadTips}
-									name="Road Tips"
-									icon="directions"
-									background="#53cbff"
-								/>
-	
-								<Option
-									action={() => this.nav("Map")}
-									name="Map"
-									icon="map"
-									background="#fe8e38"
-								/>
-	
-								<Option
-									action={() => this.nav("Notifications")}
-									name="Notifications"
-									icon="notifications"
-									background="#bc49ff"
-								/>
-							</View>
+							</ImageBackground>
 	
 						</ScrollView>
 					</SafeAreaView>
 				</Swiper>
+				<View style={ (this.state.home) ? (styles.floatingBtns) : ({ display: "none"}) }>
+					<TouchableOpacity style={styles.floatingBtn} onPress={() => this.refs.swiper.scrollBy(-1)}>
+						<View>
+							<Icon name="broadcast-tower" size={24} color="#FFFFFF" solid />
+						</View>
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.floatingBtn} onPress={() => this.nav("Chatbot")}>
+						<View>
+							<Icon name="robot" size={24} color="#FFFFFF" solid />
+						</View>
+					</TouchableOpacity>
+				</View>
 			</>
 		);
 	}
@@ -162,30 +219,52 @@ class App extends React.Component {
 };
 
 const styles = StyleSheet.create({
+	appName: {
+		fontSize: 32,
+		fontWeight: "bold",
+		color: "#ffffff",
+		marginHorizontal: 25,
+		marginTop: 40,
+
+	},
+	HomeBg: {
+		width: "100%",
+
+	},
 	card: {
 		width: (width - 20 * 3) / 2,
 		height: (width - 20 * 3) / 2,
 		borderRadius: 10,
-		shadowColor: "#fefefe22",
-		shadowOffset: {
-			width: 200,
-			height: 200,
-		},
-		shadowOpacity: 0.1,
-		shadowRadius: 10,
-		elevation: 10,
 	},
 	items: {
 		flex: 1,
 		flexDirection: "row",
 		flexWrap: "wrap",
-		paddingVertical: 40,
+		paddingTop: 20,
 		paddingHorizontal: 10,
-		backgroundColor: "#f9fbfd"
+		paddingBottom: 80,
 	},
 	item: {
 		justifyContent: "center",
 		alignItems: "center",
+	},
+	floatingBtns: {
+		position: 'absolute',
+		flex: 0,
+		flexDirection: "row",
+		justifyContent: 'center',
+		bottom: 0,
+		width: width,
+	},
+	floatingBtn: {
+		flex: 0,
+		width: 64,
+		height: 64,
+		backgroundColor: "#0075FF",
+		justifyContent: "center",
+		alignItems: "center",
+		margin: 10,
+		borderRadius: 64,
 	},
 });
 

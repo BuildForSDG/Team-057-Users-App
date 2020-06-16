@@ -62,3 +62,4 @@ buck-out/
 env.js
 android/app/src/main/res/values/secrets.xml
 apiKeys.js
+dialogflowConfig.js

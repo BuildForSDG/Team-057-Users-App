@@ -7,7 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import mapStyle from './mapStyle';
 import Geolocation from '@react-native-community/geolocation';
@@ -197,9 +197,9 @@ class DistressBroadcast extends React.Component {
                                         onPress={() => this.stopBroadcast()}
                                     >
                                         <View style={[styles.flexCenter]}>
-                                            <Icon name="warning" color="red" size={128} />
-                                            <Text style={[styles.yellow, styles.upCase, styles.textL]}>Distress</Text>
-                                            <Text style={[styles.white, styles.upCase, styles.textM]}>Broadcast</Text>
+                                            <Icon name="exclamation" color="red" size={128} />
+                                            <Text style={[styles.red, styles.upCase, styles.textL]}>Distress</Text>
+                                            <Text style={[styles.red, styles.upCase, styles.textM]}>Broadcast</Text>
                                         </View>
                                     </TouchableOpacity>
                                     <View style={styles.mapDimmer} />
@@ -208,7 +208,7 @@ class DistressBroadcast extends React.Component {
                             ) : (this.state.broadcast == 1) ? (
                                 <>
                                     <View style={[styles.flexCenter, styles.distress]}>
-                                        <Icon name="warning" color="red" size={128} />
+                                        <Icon name="exclamation" color="red" size={128} />
                                         <Text style={[styles.yellow, styles.upCase, styles.textL]}>Initializing</Text>
                                     </View>
                                     <View style={styles.mapDimmer} />
@@ -220,7 +220,7 @@ class DistressBroadcast extends React.Component {
                                         onPress={() => this.clearError()}
                                     >
                                         <View style={[styles.flexCenter, styles.distress]}>
-                                            <Icon name="warning" color="red" size={128} />
+                                            <Icon name="exclamation" color="red" size={128} />
                                             <Text style={[styles.yellow, styles.upCase, styles.textL]}>Error</Text>
                                             <Text style={[styles.white, styles.upCase, styles.textM, {textAlign: "center"}]}>Could not broadcast your distress. Try again.</Text>
                                         </View>
@@ -235,7 +235,7 @@ class DistressBroadcast extends React.Component {
                                         onPress={() => this.broadcast()}
                                     >
                                         <View style={[styles.distressBtn, styles.flexCenter]}>
-                                            <Icon name="warning" size={96} color="#ffffff" />
+                                            <Icon name="exclamation" size={96} color="#ffffff" />
                                             <Text style={[styles.white, { fontWeight: "bold", fontSize: 24 }]}>Broadcast</Text>
                                         </View>
                                     </TouchableOpacity>
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
         zIndex: 3,
     },
     distressBtn: {
-        backgroundColor: "#ff0000",
+        backgroundColor: "#00499E",
         height: 200,
         width: 200,
         borderRadius: 100,
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
         height: "100%",
         width: "100%",
         zIndex: 1,
-        backgroundColor: "rgba(0,0,0,0.5)",
+        backgroundColor: "rgba(0,0,0,0.7)",
     },
     map: {
       ...StyleSheet.absoluteFillObject,
@@ -294,6 +294,9 @@ const styles = StyleSheet.create({
     },
     yellow: {
         color: "#fcc201",
+    },
+    red: {
+        color: "#FF0000",
     },
     upCase: {
         textTransform: "uppercase",

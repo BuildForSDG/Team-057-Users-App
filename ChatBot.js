@@ -28,7 +28,12 @@ class ChatBot extends React.Component {
     state = {
         messages: [
             {
-                text: `Hi! I am your Road Assistant Bot.\n\nHow may I help you with today?`,
+                text: `Hi! I am your Road Assistant Bot.`,
+                createdAt: new Date(),
+                user: BOT
+            },
+            {
+                text: `How may I help you with today?`,
                 createdAt: new Date(),
                 user: BOT
             },
@@ -115,13 +120,12 @@ class ChatBot extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#EDEDED",
+        backgroundColor: "#F0F7FF",
         // backgroundColor: "#ffffff",
         width: width,
         height: height,
     },
     messages: {
-        backgroundColor: "#00000000",
         flex: 1,
         flexDirection: "column",
     },

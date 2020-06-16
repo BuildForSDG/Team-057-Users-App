@@ -136,7 +136,7 @@ class Weather extends Component {
 
 			this.hourly = this.state.data.hourly;
 
-			this._getPlace();
+			// this._getPlace();
 		});
 	}
 
@@ -339,7 +339,7 @@ class Weather extends Component {
 						/> */}
 						{/* <Text style={{ color: "white" }}>{this.state.lon}</Text> */}
 						{/* <Text style={{ color: "white" }}>{this.state.lat}</Text> */}
-						<Text style={{ color: "white" }}>{JSON.stringify(data)}</Text>
+						{/* <Text style={{ color: "white" }}>{JSON.stringify(data)}</Text> */}
 					</View>
 				</ScrollView>
 			</ImageBackground>
@@ -413,7 +413,7 @@ const styles = StyleSheet.create({
 		alignItems: "baseline",
 	},
 	placeState: {
-		color: "#FA6D31",
+		color: "#0075FF",
 		fontWeight: "100",
 		fontSize: 36,
 	},
@@ -440,7 +440,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	now: {
-		backgroundColor: "#FA6D31",
+		backgroundColor: "#0075FF",
 		borderTopRightRadius: 60,
 		borderBottomRightRadius: 60,
 	},
